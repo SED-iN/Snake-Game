@@ -1,8 +1,8 @@
 var scl = 30;
 var food;
 var fr = 8; 
-var highscore = 0;
 var deathcount = 0;
+var highscore = localStorage.getItem("highscore");
 
 
 var old_touchX, old_touchY;
@@ -26,6 +26,11 @@ function draw() {
   s.update();
   s.death();
 
+  if (highscore === null) {
+  highscore = 0;
+  
+  }
+  
   push();
   textSize(20);
   fill(0, 245, 255);
@@ -95,6 +100,7 @@ function Snake() {
       this.score = this.total * 10;
       if (this.score > highscore) {
        highscore = this.score; 
+	   localStorage.setItem("highscore", this.score);
       }
       return true;
     } else {
@@ -119,6 +125,7 @@ function Snake() {
         var tempscore = this.score;
         if (tempscore > highscore) {
          highscore = tempscore; 
+		 localStorage.setItem("highscore", tempscore);
         }
         this.score = 0;
         deathcount++;
